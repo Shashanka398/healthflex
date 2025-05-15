@@ -1,0 +1,155 @@
+.timer-item {
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.timer-item:hover {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+}
+
+.timer-info h3 {
+  margin-top: 0;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.timer-category-display {
+  font-size: 0.9em;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+.timer-time {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #282c34;
+  margin-bottom: 8px;
+}
+
+.timer-status {
+  font-size: 0.9em;
+  font-style: italic;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.timer-progress-bar-container {
+  width: 100%;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  height: 20px;
+  margin-bottom: 15px;
+  position: relative;
+  overflow: hidden; /* Ensures progress bar stays within container */
+}
+
+.timer-progress-bar {
+  height: 100%;
+  background-color: #007bff;
+  border-radius: 4px;
+  transition: width 0.3s ease-in-out;
+}
+
+.timer-progress-percent {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8em;
+  color: #333;
+  font-weight: bold;
+}
+
+.timer-status-running .timer-progress-bar {
+  background-color: #28a745; /* Green when running */
+}
+
+.timer-status-paused .timer-progress-bar {
+  background-color: #ffc107; /* Yellow when paused */
+}
+
+.timer-status-completed .timer-progress-bar {
+  background-color: #6c757d; /* Gray when completed */
+}
+
+.timer-controls {
+  margin-bottom: 10px;
+}
+
+.control-button {
+  padding: 8px 12px;
+  margin-right: 8px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.start-button {
+  background-color: #28a745;
+  color: white;
+}
+.start-button:hover {
+  background-color: #218838;
+}
+
+.pause-button {
+  background-color: #ffc107;
+  color: #212529;
+}
+.pause-button:hover {
+  background-color: #e0a800;
+}
+
+.reset-button {
+  background-color: #dc3545;
+  color: white;
+}
+.reset-button:hover {
+  background-color: #c82333;
+}
+
+.config-button {
+  background-color: #6c757d;
+  color: white;
+  font-size: 0.8em;
+  padding: 6px 10px;
+}
+
+.config-button:hover {
+  background-color: #5a6268;
+}
+
+.timer-extra-config {
+  margin-top: 10px;
+}
+
+.halfway-alert-config {
+  margin-top: 8px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.halfway-alert-config label {
+  display: flex;
+  align-items: center;
+}
+
+.halfway-alert-config input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.completion-message {
+  margin-top: 10px;
+  color: #28a745;
+  font-weight: bold;
+} 

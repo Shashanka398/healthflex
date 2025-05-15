@@ -1,0 +1,17 @@
+.timer-list-container {
+  margin-top: 20px;
+}
+
+.timer-list-container h2 {
+  color: #333;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+.no-timers-message {
+  color: #777;
+  font-style: italic;
+  margin-top: 20px;
+  font-size: 1.1em;
+} 
