@@ -6,7 +6,7 @@ const TimerContext = createContext();
 export const TimerProvider = ({ children }) => {
   const [timers, setTimers] = useState(() => loadTimers());
   const [history, setHistory] = useState(() => loadHistory());
-  const [completedTimerInfo, setCompletedTimerInfo] = useState(null); // For completion modal
+  const [completedTimerInfo, setCompletedTimerInfo] = useState(null);
 
   useEffect(() => {
     saveTimers(timers);
@@ -37,7 +37,7 @@ export const TimerProvider = ({ children }) => {
 
       const timer = prevTimers[timerIndex];
 
-      if (timer.status === 'Completed') return prevTimers; // Already completed
+      if (timer.status === 'Completed') return prevTimers;
 
       if (timer.intervalId) {
         clearInterval(timer.intervalId);
@@ -61,7 +61,7 @@ export const TimerProvider = ({ children }) => {
       newTimers[timerIndex] = completedTimerData;
       return newTimers;
     });
-  }, [setTimers, setHistory, setCompletedTimerInfo]); // Stable dependencies
+  }, [setTimers, setHistory, setCompletedTimerInfo]);
 
   const startTimer = useCallback((timerId) => {
     setTimers(prevTimers => {
@@ -71,10 +71,10 @@ export const TimerProvider = ({ children }) => {
       const timerToStart = prevTimers[timerIndex];
 
       if (timerToStart.status === 'Running' || timerToStart.status === 'Completed') {
-        return prevTimers; // No change needed or cannot start
+        return prevTimers;
       }
 
-      if (timerToStart.intervalId) { // Clear previous interval just in case
+      if (timerToStart.intervalId) {
         clearInterval(timerToStart.intervalId);
       }
 
@@ -87,17 +87,16 @@ export const TimerProvider = ({ children }) => {
                 let halfwayAlertTriggered = t.halfwayAlertTriggered;
 
                 if (t.enableHalfwayAlert && !t.halfwayAlertTriggered && newRemainingTime <= t.originalDuration / 2) {
-                  alert(`Timer "${t.name}" is halfway through!`); // Consider better notification system
+                  alert(`Timer "${t.name}" is halfway through!`);
                   halfwayAlertTriggered = true;
                 }
 
                 if (newRemainingTime <= 0) {
                   clearInterval(interval);
-                  // TimerItem's useEffect will call markAsCompleted based on state change
                   return { ...t, remainingTime: 0, intervalId: null, halfwayAlertTriggered };
                 }
                 return { ...t, remainingTime: newRemainingTime, halfwayAlertTriggered };
-              } else { // remainingTime is 0 but status somehow still 'Running' without interval being cleared
+              } else {
                 clearInterval(interval);
                 return { ...t, remainingTime: 0, intervalId: null }; 
               }
@@ -111,7 +110,7 @@ export const TimerProvider = ({ children }) => {
       newTimers[timerIndex] = { ...timerToStart, status: 'Running', intervalId: interval, remainingTime: timerToStart.remainingTime > 0 ? timerToStart.remainingTime : timerToStart.originalDuration };
       return newTimers;
     });
-  }, [setTimers]); // Stable dependency
+  }, [setTimers]);
 
   const pauseTimer = useCallback((timerId) => {
     setTimers(prevTimers => prevTimers.map(t => {
@@ -123,7 +122,7 @@ export const TimerProvider = ({ children }) => {
       }
       return t;
     }));
-  }, [setTimers]); // Stable dependency
+  }, [setTimers]);
 
   const resetTimer = useCallback((timerId) => {
     setTimers(prevTimers => prevTimers.map(t => {
@@ -141,7 +140,7 @@ export const TimerProvider = ({ children }) => {
       }
       return t;
     }));
-  }, [setTimers]); // Stable dependency
+  }, [setTimers]);
 
   const setHalfwayAlert = useCallback((timerId, enable) => {
     setTimers(prevTimers => prevTimers.map(t => {
@@ -149,12 +148,12 @@ export const TimerProvider = ({ children }) => {
         return {
           ...t,
           enableHalfwayAlert: enable,
-          halfwayAlertTriggered: enable ? false : t.halfwayAlertTriggered // if enabling, reset trigger; else keep current state
+          halfwayAlertTriggered: enable ? false : t.halfwayAlertTriggered
         };
       }
       return t;
     }));
-  }, [setTimers]); // Stable dependency
+  }, [setTimers]);
 
   const closeCompletionModal = () => {
     setCompletedTimerInfo(null);
@@ -163,7 +162,7 @@ export const TimerProvider = ({ children }) => {
   const startAllInCategory = useCallback((category) => {
     timers.forEach(timer => {
       if (timer.category === category && timer.status !== 'Running' && timer.status !== 'Completed') {
-        startTimer(timer.id); // startTimer is stable, will use current state internally
+        startTimer(timer.id);
       }
     });
   }, [timers, startTimer]);
@@ -184,9 +183,7 @@ export const TimerProvider = ({ children }) => {
     });
   }, [timers, resetTimer]);
 
-  // Cleanup intervals on unmount or when timers array instance changes (e.g., timers removed)
   useEffect(() => {
-    // This cleanup function runs with the `timers` value from the time the effect was set up.
     const timersToClear = timers;
     return () => {
       timersToClear.forEach(timer => {
@@ -207,7 +204,6 @@ export const TimerProvider = ({ children }) => {
       resetTimer,
       markAsCompleted, 
       setHalfwayAlert,
-      // setHistory, // Only used internally by markAsCompleted now, might not need to be exposed
       completedTimerInfo,
       closeCompletionModal,
       startAllInCategory,

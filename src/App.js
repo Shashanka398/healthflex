@@ -32,12 +32,4 @@ function AppContent() {
   );
 }
 
-function App() {
-  return (
-    <TimerProvider>
-      <AppContent />
-    </TimerProvider>
-  );
-}
-
 export default App;
