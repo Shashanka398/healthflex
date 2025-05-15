@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import TimerContext from '../contexts/TimerContext';
-import './TimerItem.css'; // We will create this CSS file next
+import './TimerItem.css';
 
 const formatTime = (totalSeconds) => {
   const minutes = Math.floor(totalSeconds / 60);
@@ -17,21 +17,15 @@ const TimerItem = ({ timer }) => {
 
   const progressPercent = (timer.originalDuration - timer.remainingTime) / timer.originalDuration * 100;
 
-  // Effect to handle timer completion and cleanup
   useEffect(() => {
     if (timer.status === 'Running' && timer.remainingTime <= 0) {
       markAsCompleted(timer.id);
     }
   }, [timer.remainingTime, timer.status, timer.id, markAsCompleted]);
 
-  // Effect to handle interval cleanup when component unmounts or timer status changes
   useEffect(() => {
-    // This will be more relevant when actual timer logic is in TimerContext
-    // For now, it acts as a placeholder for cleanup logic
     return () => {
       if (timer.intervalId) {
-        // This is a conceptual cleanup, actual clearing will happen in context
-        // console.log(`Clearing interval ${timer.intervalId} for timer ${timer.name} (conceptual)`);
       }
     };
   }, [timer.intervalId, timer.name]);
@@ -76,7 +70,7 @@ const TimerItem = ({ timer }) => {
             <label>
               <input
                 type="checkbox"
-                checked={timer.enableHalfwayAlert || false} // Ensure controlled component
+                checked={timer.enableHalfwayAlert || false}
                 onChange={handleSetHalfwayAlert}
               />
               Enable Halfway Alert (at {formatTime(Math.floor(timer.originalDuration / 2))})

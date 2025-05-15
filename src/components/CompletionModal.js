@@ -1,5 +1,5 @@
 import React from 'react';
-import './CompletionModal.css'; // We will create this CSS file next
+import './CompletionModal.css';
 
 const CompletionModal = ({ timerName, onClose }) => {
   if (!timerName) return null;

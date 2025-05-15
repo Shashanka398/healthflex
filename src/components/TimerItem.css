@@ -45,7 +45,7 @@
   height: 20px;
   margin-bottom: 15px;
   position: relative;
-  overflow: hidden; /* Ensures progress bar stays within container */
+  overflow: hidden;
 }
 
 .timer-progress-bar {
@@ -66,15 +66,15 @@
 }
 
 .timer-status-running .timer-progress-bar {
-  background-color: #28a745; /* Green when running */
+  background-color: #28a745;
 }
 
 .timer-status-paused .timer-progress-bar {
-  background-color: #ffc107; /* Yellow when paused */
+  background-color: #ffc107;
 }
 
 .timer-status-completed .timer-progress-bar {
-  background-color: #6c757d; /* Gray when completed */
+  background-color: #6c757d;
 }
 
 .timer-controls {
